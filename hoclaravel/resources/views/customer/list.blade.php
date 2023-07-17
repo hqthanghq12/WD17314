@@ -1,22 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{$title}}</title>
-</head>
-<body>
-<h1>{{$title}}</h1>
-    {{--action chuyền theo route--}}
+@extends('templates.layout')
+@section('content')
+    <h2>{{ $title }}</h2>
+
+    {{-- action bắt theo tên của route --}}
     <form action="{{route('search-customer')}}" method="POST">
         @csrf
-       <input type="text" name="searchCustomer">
+        <input type="text" name="searchCustomer">
         <input type="submit" value="Search" name="btnSend">
     </form>
-    <h1></h1>
-    <table border="1">
+
+
+    <table class="table table-striped table-hover">
         <th>ID</th>
         <th>Name</th>
         <th>Ngày sinh</th>
@@ -27,10 +21,8 @@
                 <td>{{$customers->name}}</td>
                 <td>{{$customers->birthday}}</td>
                 <td>{{$customers->gender == 1? 'Nam': 'Nữ' }}</td>
-
             </tr>
         @endforeach
 
     </table>
-</body>
-</html>
+@endsection
