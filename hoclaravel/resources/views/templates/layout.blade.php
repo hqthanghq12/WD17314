@@ -47,5 +47,27 @@
     <p>Trungnt173</p>
 </footer>
 </body>
+<script src="{{asset('bootstrap/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('bootstrap/input-mask/jquery.inputmask.js')}}"></script>
+<script src="{{asset('bootstrap/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+<script>
+    $(function(){
+        function readURL(input, selector) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(selector).attr('src', e.target.result);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#cmt_anh").change(function () {
+            readURL(this, '#anh_the_preview');
+        });
+
+    });
+</script>
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 </html>
