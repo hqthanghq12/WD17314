@@ -4,10 +4,8 @@
     <form action="" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" placeholder="Name" name="name" ><br>
-        <input type="text" placeholder="Address" name="address" ><br>
         <input type="text" placeholder="Email" name="email" ><br>
-        <input type="text" placeholder="Phone Number" name="phone_number" ><br>
-        <input type="date" name="date_of_birth" ><br>
+        <input type="date" name="birthday" ><br>
         <input type="radio" name="gender" value="1" checked>
         <label for="">Nam</label>
         <input type="radio" name="gender" value="0">
