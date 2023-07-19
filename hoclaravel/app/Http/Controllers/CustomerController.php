@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
 {
@@ -35,10 +37,30 @@ class CustomerController extends Controller
 //    tạo 1 hàm dùng để thêm
 //      Cho hàm hiển thị form thêm
 // viết route cho hàm trên
-    public function  add(Request $request){
+    public function  add(CustomerRequest $request){
         $title = 'Add Customer';
 //        Hien thi ra view
 //        b1: php artisan make:request tênfile
+//        Xử lý thêm
+//        Xử lý ảnh
+            if($request->isMethod('POST')){
+                if($request->hasFile('image') && $request->file('image')->isValid()){
+                    $request->image = uploadFile('hinh', $request->file('image'));
+                }
+
+                $params = $request->except('_token', 'image');
+                $params['hinh'] = $request->image;
+
+                $customer = Customer::create($params);
+
+                if($customer->id){
+                    Session::flash('success', 'Thêm khách hàng thành công');
+                }
+
+            }
+
+
+
         return view('customer.add', compact('title'));
     }
 }

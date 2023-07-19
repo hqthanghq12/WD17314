@@ -39,6 +39,7 @@
 
 {{-- Nội dung --}}
 <div>
+   @include('templates.error')
     @yield('content')
 </div>
 

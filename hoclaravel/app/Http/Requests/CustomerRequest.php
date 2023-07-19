@@ -45,6 +45,7 @@ class CustomerRequest extends FormRequest
                 break;
 
         }
+
         return $rules;
     }
     public function  messages()

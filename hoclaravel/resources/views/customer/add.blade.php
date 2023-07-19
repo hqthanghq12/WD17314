@@ -1,7 +1,7 @@
 @extends('templates.layout')
 @section('content')
     <h1>{{$title}}</h1>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="{{route('add-customer')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="text" placeholder="Name" name="name" ><br>
         <input type="text" placeholder="Email" name="email" ><br>
