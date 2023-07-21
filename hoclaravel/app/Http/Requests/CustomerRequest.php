@@ -37,7 +37,13 @@ class CustomerRequest extends FormRequest
                             'image'=>'required'
                         ];
                         break;
-
+                    case 'edit': // hàm nào gọi đến
+                        $rules = [
+                            'name' => 'required',
+                            'email'=> 'required',
+                            'birthday'=>'required'
+                        ];
+                        break;
                     default:
                         break;
                 }

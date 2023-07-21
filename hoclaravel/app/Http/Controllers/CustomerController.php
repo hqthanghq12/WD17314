@@ -7,6 +7,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -63,11 +64,33 @@ class CustomerController extends Controller
 
         return view('customer.add', compact('title'));
     }
-    public  function  edit(Request $request, $id){
+    public  function  edit(CustomerRequest $request, $id){
         $title = 'Edit Customer';
 //        cách 1
             $customer = DB::table('customer')
                 ->where('id', $id)->first();
+//            Code update
+        if($request->isMethod('POST')){// check xem có post hay không
+            $params = $request->except('_token', 'image');
+            if($request->hasFile('image') && $request->file('image')->isValid()){
+//                Xóa ảnh cũ khi có thực hiện post ảnh mới
+                $resultDL = Storage::delete('/public/'.$customer->hinh);
+                if($resultDL){
+                    $request->image = uploadFile('hinh', $request->file('image'));
+                    $params['hinh'] =  $request->image;
+                }
+            }else{
+//                nếu không thay hình thì ảnh sẽ là ảnh cũ
+                $params['hinh'] = $customer->hinh;
+            }
+            $result = Customer::where('id', $id)->update($params);
+            if($result){
+                Session::flash('success', 'Sửa khách hàng thành công');
+//                chuyển trang sau khi thành công
+                return redirect()->route('edit-customer', ['id'=>$id]);
+            }
+
+        }
         return view('customer.edit', compact('title', 'customer'));
     }
 }
