@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique(); // Không trùng lặp
             $table->date('birthday')->nullable();
             $table->tinyInteger('gender')->default(1);// đặt giá trị mặc định
+            $table->string('hinh');
             $table->timestamps();
         });
     }
