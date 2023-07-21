@@ -37,6 +37,7 @@ class CustomerRequest extends FormRequest
                             'image'=>'required'
                         ];
                         break;
+
                     default:
                         break;
                 }

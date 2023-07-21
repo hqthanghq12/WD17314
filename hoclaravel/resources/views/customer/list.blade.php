@@ -15,12 +15,16 @@
         <th>Name</th>
         <th>Ngày sinh</th>
         <th>Giới tính</th>
+        <th>Ảnh</th>
+        <th>Thao tác</th>
         @foreach($listCustomer as $customers)
             <tr>
                 <td>{{$customers->id}}</td>
                 <td>{{$customers->name}}</td>
                 <td>{{$customers->birthday}}</td>
                 <td>{{$customers->gender == 1? 'Nam': 'Nữ' }}</td>
+                <td><img src="{{$customers->hinh? Storage::url($customers->hinh): ''}}" style="width: 100px; height: 100px"></td>
+                <td><a href="{{route('edit-customer',['id'=>$customers->id])}}">Sửa</a></td>
             </tr>
         @endforeach
 

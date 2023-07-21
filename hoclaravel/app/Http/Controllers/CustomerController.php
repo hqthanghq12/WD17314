@@ -63,4 +63,11 @@ class CustomerController extends Controller
 
         return view('customer.add', compact('title'));
     }
+    public  function  edit(Request $request, $id){
+        $title = 'Edit Customer';
+//        cách 1
+            $customer = DB::table('customer')
+                ->where('id', $id)->first();
+        return view('customer.edit', compact('title', 'customer'));
+    }
 }

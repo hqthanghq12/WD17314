@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/list-customer',[CustomerController::class, 'list_customer']);
 Route::post('/list-customer',[CustomerController::class, 'list_customer'])->name('search-customer');
 Route::match(['GET', 'POST'], '/add/customer', [CustomerController::class, 'add'])->name('add-customer');
+Route::match(['GET', 'POST'], '/edit/customer/{id}', [CustomerController::class, 'edit'])->name('edit-customer');
