@@ -4,14 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CustomerRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-//        chuyển ve true
         return true;
     }
 
@@ -22,26 +21,23 @@ class CustomerRequest extends FormRequest
      */
     public function rules(): array
     {
-//        khai báo 1 mảng
         $rules = [];
 //        Lấy phương thức đang hoạt động
         $method = $this->route()->getActionMethod();
         switch ($this->method()){
             case 'POST':
                 switch ($method){
-                    case 'add': // hàm nào gọi đến
+                    case 'login': // hàm nào gọi đến
                         $rules = [
-                            'name' => 'required',
-                            'email'=> 'required|unique:customer',
-                            'birthday'=>'required',
-                            'image'=>'required'
+                            'email'=> 'required',
+                            'password' =>'required'
                         ];
                         break;
-                    case 'edit': // hàm nào gọi đến
+                    case 'register': // hàm nào gọi đến
                         $rules = [
-                            'name' => 'required',
-                            'email'=> 'required',
-                            'birthday'=>'required',
+                            'name'=>'required',
+                            'email'=> 'required:unique:users',
+                            'password' =>'required'
                         ];
                         break;
                     default:
@@ -58,11 +54,11 @@ class CustomerRequest extends FormRequest
     public function  messages()
     {
         return [
-            'name.required'=> 'Không được bỏ trống tên',
+            'name.required'=>'Không được bỏ trống tên',
             'email.required'=>'Không được bỏ trống email',
-            'email.unique'=>'Email này đã được dung',
-            'birthday.required'=>'Không được bỏ trống ngày sinh',
-            'image.required' => 'Không được bỏ trống ảnh'
+            'password.required'=>'Không được bỏ trống pass',
+            'password.unique'=>'Email này đã đăng ký',
+
         ];
 
     }

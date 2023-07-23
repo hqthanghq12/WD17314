@@ -21,6 +21,7 @@ return new class extends Migration
             $table->tinyInteger('gender')->default(1);// đặt giá trị mặc định
             $table->string('hinh');
             $table->timestamps();
+            $table->softDeletes(); // add
         });
     }
 

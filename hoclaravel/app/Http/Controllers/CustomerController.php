@@ -7,6 +7,7 @@ use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -58,9 +59,46 @@ class CustomerController extends Controller
                 }
 
             }
-
-
-
         return view('customer.add', compact('title'));
+    }
+    public function edit(CustomerRequest $request, $id){
+        $title = 'Edit Customer';
+//        cách 1:
+//                $customer = DB::table('customer')
+//                ->where('id',$id)->first();
+// cách 2:
+        $customer = Customer::find($id);
+        if ($request->isMethod('POST')) {
+            $params = $request->except('_token', 'image');
+
+            if ($request->hasFile('image') && $request->file('image')->isValid()) {
+
+//               dd('public/'.$student->image);
+                $resultDL = Storage::delete('/public/'.$customer->hinh);
+                if ($resultDL) {
+
+                    $request->image = uploadFile('hinh', $request->file('image'));
+                    $params['hinh'] = $request->image;
+
+                }
+            } else {
+                $params['hinh'] = $request->image;
+            }
+
+            $result = Customer::where('id',$id)
+                ->update($params);
+            if ($result) {
+                Session::flash('success','sửa  thành công sinh viên');
+                return redirect()->route('edit-customer',['id'=>$id]);
+            }
+        }
+        return view('customer.edit', compact('title', 'customer'));
+    }
+    public function delete(Request $request, $id){
+        $customer = Customer::where('id', $id)->delete();
+        if($customer){
+            Session::flash('success','Xóa  thành công sinh viên');
+            return redirect()->back();
+        }
     }
 }
