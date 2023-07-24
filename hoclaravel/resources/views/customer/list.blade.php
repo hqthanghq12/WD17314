@@ -25,6 +25,7 @@
                 <td>{{$customers->gender == 1? 'Nam': 'Nữ' }}</td>
                 <td><img src="{{$customers->hinh? Storage::url($customers->hinh): ''}}" style="width: 100px; height: 100px"></td>
                 <td><a href="{{route('edit-customer',['id'=>$customers->id])}}">Sửa</a></td>
+                <td><a href="{{route('delete-customer',['id'=>$customers->id])}}">Xóa</a></td>
             </tr>
         @endforeach
 

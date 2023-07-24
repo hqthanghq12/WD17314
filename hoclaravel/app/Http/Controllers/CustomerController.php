@@ -93,4 +93,12 @@ class CustomerController extends Controller
         }
         return view('customer.edit', compact('title', 'customer'));
     }
+    public function delete(Request $request, $id){
+        $customerDL = Customer::where('id', $id)->delete();
+        if($customerDL){
+            Session::flash('success', 'Xóa khách hàng thành công');
+//                chuyển trang sau khi thành công
+            return redirect()->route('list');
+        }
+    }
 }

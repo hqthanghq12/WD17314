@@ -30,7 +30,8 @@ class CustommerSeeder extends Seeder
                 "name"=>"Nguyễn Văn A",
                 "email"=>"trung".$i."@gmail.com",
                 "birthday"=>"2004-10-20",
-                "gender"=>1
+                "gender"=>1,
+                "hinh" => ""
             ];
         }
         DB::table('customer')->insert($test);
