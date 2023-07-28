@@ -45,6 +45,7 @@ class CustomerController extends Controller
 //        Xử lý thêm
 //        Xử lý ảnh
             if($request->isMethod('POST')){
+//                dd($request->hasFile('image'));
                 if($request->hasFile('image') && $request->file('image')->isValid()){
                     $request->image = uploadFile('hinh', $request->file('image'));
                 }
