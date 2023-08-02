@@ -20,5 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::prefix('customer')->group(function (){
     Route::get('/', [ApiCustomerController::class, 'index']); // lay ra danh sach
+    Route::post('/',  [ApiCustomerController::class, 'store']); // Thêm
+    Route::get('/{id}', [ApiCustomerController::class, 'show']); // hien thi sua
+    Route::put('/{id}', [ApiCustomerController::class, 'update']); // SỬa
+    Route::delete('/{id}', [ApiCustomerController::class, 'destroy']); // xoa
 });
 

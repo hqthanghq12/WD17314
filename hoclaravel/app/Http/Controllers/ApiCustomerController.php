@@ -34,9 +34,16 @@ class ApiCustomerController extends Controller
     /**
      * Display the specified resource.
      */
+//    Hiển thị sửa
     public function show(string $id)
     {
         //
+        $customer = Customer::find($id);
+        if($customer){
+            return new CustomerResoure($customer);
+        }else{
+            return  response()->json(['message'=>'Khách hàng không tại'], 404);
+        }
     }
 
     /**
@@ -45,6 +52,12 @@ class ApiCustomerController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        $customer = Customer::find($id);
+        if($customer){
+            $customer->update($request->all());
+        }else{
+            return  response()->json(['message'=>'Khách hàng không tại'], 404);
+        }
     }
 
     /**
@@ -53,5 +66,12 @@ class ApiCustomerController extends Controller
     public function destroy(string $id)
     {
         //
+        $customer = Customer::find($id);
+        if($customer){
+            $customer->delete();
+            return  response()->json(['message'=>'Xóa thành công'], 280);
+        }else{
+            return  response()->json(['message'=>'Khách hàng không tại'], 404);
+        }
     }
 }

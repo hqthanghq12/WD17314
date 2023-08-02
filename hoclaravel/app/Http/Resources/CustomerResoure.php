@@ -14,10 +14,11 @@ class CustomerResoure extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        return parent::toArray($request);
-        return [
-            "id" => $this->id,
-            "name" => $this->name,
-        ];
+        return parent::toArray($request);
+//        điều chỉnh dự liệu
+//        return [
+//            "id" => $this->id,
+//            "name" => $this->name,
+//        ];
     }
 }
