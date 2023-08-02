@@ -18,9 +18,10 @@ use \App\Http\Controllers\Auth\LoginCotroller;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/logout',[LoginCotroller::class, 'logout'])->name('logout');
 Route::match(['GET', 'POST'], '/login', [LoginCotroller::class, 'login'])->name('login');
 Route::middleware(['auth'])->group(function (){
-Route::get('/list-customer',[CustomerController::class, 'list_customer'])->name('list');
+Route::get('/list-customer',[CustomerController::class, 'list_customer'])->name('list')->middleware('check.role');
 Route::post('/list-customer',[CustomerController::class, 'list_customer'])->name('search-customer');
 Route::match(['GET', 'POST'], '/add/customer', [CustomerController::class, 'add'])->name('add-customer');
 Route::match(['GET', 'POST'], '/edit/customer/{id}', [CustomerController::class, 'edit'])->name('edit-customer');
